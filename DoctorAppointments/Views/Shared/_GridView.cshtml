@@ -1,0 +1,35 @@
+﻿@{
+    var items = ViewData["Items"] as IEnumerable<dynamic>;
+    var getTitle = ViewData["GetTitle"] as Func<dynamic, string> ?? (x => "No Title");
+    var getImage = ViewData["GetImage"] as Func<dynamic, string?> ?? (x => null);
+    var defaultImage = "/assets/images/default-avatar.jpg";
+}
+
+@if (items != null && items.Any())
+{
+    <div class="container">
+        <div class="row">
+            @foreach (var item in items)
+            {
+                var imageUrl = getImage(item);
+                imageUrl = string.IsNullOrEmpty(imageUrl) ? defaultImage : imageUrl;
+
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="@imageUrl" class="card-img-top" alt="@getTitle(item)" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@getTitle(item)</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center mt-5">
+        <img src="@defaultImage" alt="No items" style="width: 150px; height: 150px;">
+        <h4 class="mt-3 text-muted">No items found</h4>
+    </div>
+}

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Doctor>
+@{
+    ViewData["Title"] = "Doctor";
+}
+
+<h2>Doctors</h2>
+
+@* <p> *@
+@*     <a asp-action="Create">Create New</a> *@
+
+@* </p> *@
+
+@{
+    var defaultImage = "assets/images/default-avatar.jpg";
+}
+
+@if (Model != null && Model.Any())
+{
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                var imageUrl = string.IsNullOrEmpty(item.Img) ? defaultImage : "assets/images" + item.Img;
+
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="@imageUrl" class="card-img-top" alt="@item.Name" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <div class="float-end">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm"><i class="bi bi-eye"></i></a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center mt-5">
+        <img src="@defaultImage" alt="No items" style="width: 150px; height: 150px;">
+        <h4 class="mt-3 text-muted">No items found</h4>
+    </div>
+}
+
+
