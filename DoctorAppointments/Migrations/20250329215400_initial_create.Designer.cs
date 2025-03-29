@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorAppointments.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250325211638_inital_create")]
-    partial class inital_create
+    [Migration("20250329215400_initial_create")]
+    partial class initial_create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,6 @@ namespace DoctorAppointments.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DoctorId")
@@ -64,7 +63,6 @@ namespace DoctorAppointments.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Img")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -78,6 +76,9 @@ namespace DoctorAppointments.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.HasIndex("SpecializationId");
 
                     b.ToTable("Doctors");
@@ -86,28 +87,28 @@ namespace DoctorAppointments.Migrations
                         new
                         {
                             Id = 1,
-                            Img = "/doctors/doctor1.jpg",
+                            Img = "/images/doctors/doctor1.jpg",
                             Name = "Dr. John Doe",
                             SpecializationId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Img = "/doctors/doctor2.jpg",
+                            Img = "/images/doctors/doctor2.jpg",
                             Name = "Dr. Jane Smith",
                             SpecializationId = 2
                         },
                         new
                         {
                             Id = 3,
-                            Img = "/doctors/doctor3.jpg",
+                            Img = "/images/doctors/doctor3.jpg",
                             Name = "Dr. Richard Roe",
                             SpecializationId = 3
                         },
                         new
                         {
                             Id = 4,
-                            Img = "/doctors/doctor4.jpg",
+                            Img = "/images/doctors/doctor4.jpg",
                             Name = "Dr. Alice Johnson",
                             SpecializationId = 4
                         });
@@ -122,7 +123,6 @@ namespace DoctorAppointments.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -137,6 +137,10 @@ namespace DoctorAppointments.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
 
                     b.ToTable("Patients");
 
@@ -180,11 +184,9 @@ namespace DoctorAppointments.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Img")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -200,43 +202,31 @@ namespace DoctorAppointments.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "",
-                            Img = "",
                             Name = "Cardiology"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "",
-                            Img = "",
                             Name = "Dermatology"
                         },
                         new
                         {
                             Id = 3,
-                            Description = "",
-                            Img = "",
                             Name = "Neurology"
                         },
                         new
                         {
                             Id = 4,
-                            Description = "",
-                            Img = "",
                             Name = "Pediatrics"
                         },
                         new
                         {
                             Id = 5,
-                            Description = "",
-                            Img = "",
                             Name = "Psychiatry"
                         },
                         new
                         {
                             Id = 6,
-                            Description = "",
-                            Img = "",
                             Name = "Radiology"
                         });
                 });

@@ -1,8 +1,9 @@
-﻿namespace DoctorAppointments.Models
+﻿namespace DoctorAppointments.ViewModels.Patient
 {
-    [Index(nameof(Email), IsUnique = true)]
-    public class Patient : BaseModel
+    public class PatientFormViewModel
     {
+        [MaxLength(50)]
+        public string Name { get; set; } = string.Empty;
         [MaxLength(100)]
         [EmailAddress]
         public string? Email { get; set; } = string.Empty;

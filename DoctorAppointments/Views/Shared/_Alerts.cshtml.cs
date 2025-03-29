@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DoctorAppointments.Views.Doctor
+namespace DoctorAppointments.Views.Shared
 {
-    public class indexModel : PageModel
+    public class _AlertModel : PageModel
     {
         public void OnGet()
         {

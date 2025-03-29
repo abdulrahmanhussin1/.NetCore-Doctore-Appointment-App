@@ -21,6 +21,7 @@ public class Program
             .AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddControllersWithViews();
 
+        builder.Services.AddScoped<IStorageService, StorageService>();
         builder.Services.AddScoped<ISpecializationService, SpecializationService>();
         builder.Services.AddScoped<IDoctorService, DoctorService>();
         builder.Services.AddScoped<IAppointmentService, AppointmentService>();

@@ -35,10 +35,10 @@ public class ApplicationDbContext : IdentityDbContext
         modelBuilder.Entity<Doctor>()
             .HasData(new Doctor[]
             {
-                new Doctor { Id = 1, Name = "Dr. John Doe", SpecializationId = 1, Img = "/doctors/doctor1.jpg" },
-                new Doctor { Id = 2, Name = "Dr. Jane Smith", SpecializationId = 2, Img = "/doctors/doctor2.jpg" },
-                new Doctor { Id = 3, Name = "Dr. Richard Roe", SpecializationId = 3, Img = "/doctors/doctor3.jpg" },
-                new Doctor { Id = 4, Name = "Dr. Alice Johnson", SpecializationId = 4, Img = "/doctors/doctor4.jpg" }
+                new Doctor { Id = 1, Name = "Dr. John Doe", SpecializationId = 1, Img = "/images/doctors/doctor1.jpg" },
+                new Doctor { Id = 2, Name = "Dr. Jane Smith", SpecializationId = 2, Img = "/images/doctors/doctor2.jpg" },
+                new Doctor { Id = 3, Name = "Dr. Richard Roe", SpecializationId = 3, Img = "/images/doctors/doctor3.jpg" },
+                new Doctor { Id = 4, Name = "Dr. Alice Johnson", SpecializationId = 4, Img = "/images/doctors/doctor4.jpg" }
             });
 
         modelBuilder.Entity<Patient>().HasData(

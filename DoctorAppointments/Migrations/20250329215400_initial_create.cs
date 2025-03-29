@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DoctorAppointments.Migrations
 {
     /// <inheritdoc />
-    public partial class inital_create : Migration
+    public partial class initial_create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,7 +58,7 @@ namespace DoctorAppointments.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
@@ -73,8 +73,8 @@ namespace DoctorAppointments.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Img = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Img = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -195,7 +195,7 @@ namespace DoctorAppointments.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SpecializationId = table.Column<int>(type: "int", nullable: false),
-                    Img = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Img = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -218,7 +218,7 @@ namespace DoctorAppointments.Migrations
                     DoctorId = table.Column<int>(type: "int", nullable: false),
                     PatientId = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -253,12 +253,12 @@ namespace DoctorAppointments.Migrations
                 columns: new[] { "Id", "Description", "Img", "Name" },
                 values: new object[,]
                 {
-                    { 1, "", "", "Cardiology" },
-                    { 2, "", "", "Dermatology" },
-                    { 3, "", "", "Neurology" },
-                    { 4, "", "", "Pediatrics" },
-                    { 5, "", "", "Psychiatry" },
-                    { 6, "", "", "Radiology" }
+                    { 1, null, null, "Cardiology" },
+                    { 2, null, null, "Dermatology" },
+                    { 3, null, null, "Neurology" },
+                    { 4, null, null, "Pediatrics" },
+                    { 5, null, null, "Psychiatry" },
+                    { 6, null, null, "Radiology" }
                 });
 
             migrationBuilder.InsertData(
@@ -266,10 +266,10 @@ namespace DoctorAppointments.Migrations
                 columns: new[] { "Id", "Img", "Name", "SpecializationId" },
                 values: new object[,]
                 {
-                    { 1, "/doctors/doctor1.jpg", "Dr. John Doe", 1 },
-                    { 2, "/doctors/doctor2.jpg", "Dr. Jane Smith", 2 },
-                    { 3, "/doctors/doctor3.jpg", "Dr. Richard Roe", 3 },
-                    { 4, "/doctors/doctor4.jpg", "Dr. Alice Johnson", 4 }
+                    { 1, "/images/doctors/doctor1.jpg", "Dr. John Doe", 1 },
+                    { 2, "/images/doctors/doctor2.jpg", "Dr. Jane Smith", 2 },
+                    { 3, "/images/doctors/doctor3.jpg", "Dr. Richard Roe", 3 },
+                    { 4, "/images/doctors/doctor4.jpg", "Dr. Alice Johnson", 4 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -322,9 +322,22 @@ namespace DoctorAppointments.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Doctors_Name",
+                table: "Doctors",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Doctors_SpecializationId",
                 table: "Doctors",
                 column: "SpecializationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_Email",
+                table: "Patients",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
         }
 
         /// <inheritdoc />
